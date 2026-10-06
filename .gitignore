@@ -1,0 +1,8 @@
+build/
+.qtcreator/
+*.pro.user*
+*.o
+moc_*
+ui_*.h
+qrc_*.cpp
+Makefile*
