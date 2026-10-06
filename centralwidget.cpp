@@ -107,3 +107,7 @@ void CentralWidget::setLineStyle(QAction* styleAction) {
 void CentralWidget::setShape(QAction *shapeAction) {
     shapeType_ = static_cast<ShapeType>(shapeAction->data().value<int>());
 }
+
+void CentralWidget::enterEditMode(QAction* editAction) {
+    //TODO
+}

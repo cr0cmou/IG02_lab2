@@ -22,6 +22,7 @@ public slots:
     void setLineThickness(QAction* thicknessAction);
     void setLineStyle(QAction* styleAction);
     void setShape(QAction* shapeAction);
+    void enterEditMode(QAction* editAction);
 
 
 private:

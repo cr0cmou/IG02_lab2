@@ -82,6 +82,10 @@ MainWindow::MainWindow(QWidget *parent) //class constructor
     drawingToolBar->addActions(shapeActionGroup->actions());
     connect(shapeActionGroup, &QActionGroup::triggered, this->drawingBoard, &CentralWidget::setShape);
 
+    QAction* editAction = new QAction("edit");
+    editAction->setCheckable(true);
+    drawingToolBar->addAction(editAction);
+
 }
 
 MainWindow::~MainWindow()
