@@ -9,6 +9,7 @@
 #include <QPen>
 #include <QList>
 
+//MARIAM PINTON
 
 class CentralWidget : public QWidget { //class CentralWidget inherits from QWidget
 

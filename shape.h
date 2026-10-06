@@ -5,6 +5,8 @@
 #include <QPen>
 #include <QPainter>
 
+// MARIAM PINTON
+
 class Shape {
 
 public:

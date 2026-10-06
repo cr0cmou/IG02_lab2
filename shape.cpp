@@ -5,6 +5,8 @@
 #include <QPainter>
 #include <QRect>
 
+// MARIAM PINTON
+
 Shape::Shape(const QPoint &start, const QPen &pen) {
     start_ = start;
     end_ = start; //by default, the end is the same as the start

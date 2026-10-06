@@ -19,6 +19,8 @@
 #include <QActionGroup>
 #include <QPen>
 
+// MARIAM PINTON
+
 MainWindow::MainWindow(QWidget *parent) //class constructor
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)

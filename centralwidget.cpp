@@ -3,6 +3,8 @@
 #include <QPen>
 #include <shape.h>
 
+// MARIAM PINTON
+
 CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent) { //class constructor
     this->setMinimumSize(500, 500);
 

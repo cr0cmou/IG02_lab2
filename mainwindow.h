@@ -6,6 +6,8 @@
 #include <QCloseEvent>
 #include <centralwidget.h>
 
+// MARIAM PINTON
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
