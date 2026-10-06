@@ -16,6 +16,8 @@ public:
     void setEnd(const QPoint &end);
     virtual void draw(QPainter &painter) const = 0; //makes Shape abstract: pure virtual function
     //you can't use the draw() method directly on a Shape that isn't a Rectangle or sth else
+    virtual bool contains(const QPoint &p) const = 0;
+    virtual void drawSelected(QPainter &painter) const = 0;
 
 protected:
     QPoint start_; //shape start point (x,y)
@@ -29,7 +31,8 @@ class Line : public Shape { //Line inherits from abstract base class Shape
 public:
     using Shape::Shape; //reuse of the base constructor
     void draw(QPainter &painter) const override; //override of the virtual draw() method -> Line is now non abstract
-
+    bool contains(const QPoint &p) const override;
+    void drawSelected(QPainter &painter) const override;
 };
 
 class Rectangle : public Shape { //Rectangle inherits from abstract base class Shape
@@ -37,6 +40,8 @@ class Rectangle : public Shape { //Rectangle inherits from abstract base class S
 public:
     using Shape::Shape; //reuse of the base constructor
     void draw(QPainter &painter) const override; //-> Rectangle is now non abstract
+    bool contains(const QPoint &p) const override;
+    void drawSelected(QPainter &painter) const override;
 
 };
 
@@ -45,6 +50,8 @@ class Ellipse : public Shape { //Ellpise inherits from abstract base class Shape
 public:
     using Shape::Shape; //reuse of the base constructor
     void draw(QPainter &painter) const override; //-> Ellipse is now non abtract
+    bool contains(const QPoint &p) const override;
+    void drawSelected(QPainter &painter) const override;
 
 };
 

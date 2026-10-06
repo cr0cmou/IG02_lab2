@@ -23,7 +23,7 @@ public slots:
     void setLineThickness(QAction* thicknessAction);
     void setLineStyle(QAction* styleAction);
     void setShape(QAction* shapeAction);
-    void enterEditMode(QAction* editAction);
+    void enterEditMode(bool edit_isChecked);
 
 
 private:
@@ -34,7 +34,10 @@ private:
 
     std::unique_ptr<Shape> current_; // pointer to the Shape being drawn
     std::vector<std::unique_ptr<Shape>> shapeBuffer_; // buffer of all drawn shapes
-    bool drawing_ = false; //flag to differentiate from other mouseMoveEvents
+    bool dragging_ = false; //flag : the user is in the middle of dragging the mouse to draw a shape
+    bool editing_ = false; //flag : the user is editing the shapes
+    Shape* selected_ = nullptr; //the shape selected for editing ; non-owning pointer
+
 
     QColor lineColor_ = Qt::black; //default
     int lineThickness_ = 15; //default (thick)

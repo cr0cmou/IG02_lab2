@@ -42,11 +42,15 @@ void CentralWidget::paintEvent(QPaintEvent* event){ //to call whenever the widge
         current_->draw(painter); //call the draw method depending on the last shape
     }
 
+    if (selected_) {
+        selected_->drawSelected(painter);
+    }
+
 }
 
 void CentralWidget::mousePressEvent(QMouseEvent* event) {
-    if (event->button() == Qt::LeftButton) {
-        drawing_ = true;
+    if (event->button() == Qt::LeftButton && editing_ == false) { //first case : we're in 'drawing' mode
+        dragging_ = true;
 
         QPen pen;
         //setting pen to currently selected variables:
@@ -67,24 +71,59 @@ void CentralWidget::mousePressEvent(QMouseEvent* event) {
 
         update(); //schedules a paintEvent()
     }
-}
 
-void CentralWidget::mouseMoveEvent(QMouseEvent *event) {
-    if ((event->buttons() & Qt::LeftButton) && drawing_) { //buttons() returns which buttons are currently held
-        current_->setEnd(event->pos()); //no need to check is current_ is a null pointer thanks to drawing_
-
+    else if(event->button() == Qt::LeftButton && editing_ == true) { //second case : we're in editing mode
+        selected_ = nullptr;
+        for (auto const &s: shapeBuffer_) { // go through all shapes, check which one is selected from oldest to newest
+            if (s->contains(event->pos())) {
+                selected_ = s.get(); //get() on a std::unique_ptr returns the raw Shape* it holds
+                break;
+                }
+        }
+        if (selected_!=nullptr) {
+            dragging_ = true;
+        }
         update();
     }
 }
 
-void CentralWidget::mouseReleaseEvent(QMouseEvent *event) {
-    if (event->button() == Qt::LeftButton && drawing_) {
-        //hasLine_ = false; //uncomment this line to make the line disappear when releasing mouse button
-        drawing_ = false;
-        current_->setEnd(event->pos()); //no need to check if current_ is a null pointer thanks to drawing_
-        shapeBuffer_.push_back(std::move(current_)); // move last drawn shape from current_ to shapeBuffer_
+void CentralWidget::mouseMoveEvent(QMouseEvent *event) {
+    if ((event->buttons() & Qt::LeftButton) && dragging_) { //buttons() returns which buttons are currently held
+        if (editing_ == false) {
 
-        update();
+            current_->setEnd(event->pos()); //no need to check is current_ is a null pointer thanks to dragging_
+
+            update();
+
+        } else {
+
+            selected_->setEnd(event->pos()); // selected is guaranteed non-null thanks to dragging_
+
+            update();
+        }
+    }
+}
+
+void CentralWidget::mouseReleaseEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton && dragging_) {
+
+        dragging_ = false;
+
+        if (editing_ == false) {
+
+            //hasLine_ = false; //uncomment this line to make the line disappear when releasing mouse button
+
+            current_->setEnd(event->pos()); //no need to check if current_ is a null pointer thanks to dragging_
+            shapeBuffer_.push_back(std::move(current_)); // move last drawn shape from current_ to shapeBuffer_
+
+            update();
+
+        } else {
+
+            selected_->setEnd(event->pos()); // selected is guaranteed non-null thanks to dragging_
+
+            update();
+        }
     }
 }
 
@@ -110,6 +149,12 @@ void CentralWidget::setShape(QAction *shapeAction) {
     shapeType_ = static_cast<ShapeType>(shapeAction->data().value<int>());
 }
 
-void CentralWidget::enterEditMode(QAction* editAction) {
-    //TODO
+void CentralWidget::enterEditMode(bool edit_isChecked) {
+    if (edit_isChecked) {
+        editing_ = true;
+    } else {
+        editing_ = false;
+    }
+    dragging_ = false;
+
 }
