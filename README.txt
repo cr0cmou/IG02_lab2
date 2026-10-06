@@ -1,4 +1,4 @@
-Mariam PINTON - Submission for IG01 labs 1 and 2
+Mariam PINTON - Submission for IG02 labs 1 and 2
 
 ANSWERED QUESTIONS:
 lab1 : steps 1 to 8
