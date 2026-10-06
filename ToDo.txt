@@ -1,0 +1,9 @@
+Done:
+Step6: selection and resizing of graphical elements works.
+
+ToDo:
+Step6:
+- move whole selected shape around
+- change graphical attributes of selected shape
+- have the toolbar reflect the currently selected attributes of the shape, for more readability for the user (two-way-syncing)
+- (detail) change the priority of shape selection from oldest-to-newest into newest-to-oldest
